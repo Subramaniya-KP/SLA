@@ -1,0 +1,39 @@
+import java.util.Scanner;
+public class ConditionalStmtAssignment {
+	void question1(int mark) {
+		int localMark = mark;
+		if(localMark > 80) {
+			System.out.println("Excellent");
+		}
+		else if(localMark <= 80 & localMark >=61) {
+			System.out.println("Good");
+		}
+		else if(localMark <= 60 & localMark >= 50){
+			System.out.println("Average");
+		}
+		else {
+			System.out.println("Invalid input");
+		}
+	}
+	void question2 (){
+		System.out.println("Even numbers between 1 and 20 are:");
+		for(int i=1;i<20;i++){
+			if(i%2==0) {
+				System.out.println(i);
+			}
+		}
+	}
+	
+	public static void main(String[] args) {
+		ConditionalStmtAssignment mainObj = new ConditionalStmtAssignment();
+		Scanner scanObj = new Scanner(System.in);
+		
+		System.out.println("Please enter the student's mark: ");
+		int mark = scanObj.nextInt();
+		
+		mainObj.question1(mark);
+		mainObj.question2();
+		
+		scanObj.close();
+	}
+}
