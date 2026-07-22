@@ -1,0 +1,12 @@
+public class DataTypes {
+
+	public static void main(String[] args) {
+		
+		int number = 100; //integer data type for whole number
+		double number1 = 70.25; //double data type for decimal
+		char letter = 'M'; //char data type for single character letter
+		String word = "Great"; //String data type for a word
+		
+		System.out.print(letter+" "+word+" "+number+" "+number1);	
+	}	
+}
