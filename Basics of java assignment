@@ -1,0 +1,14 @@
+Advantages of Java:
+
+• Simplicity is the main advantage that comes with Java as a language. Java has a simple syntax that makes it easy to understand and debug. Furthermore, Java is less complex than languages
+like C and C++ because many of the complex things like pointers, operator overloading, etc have been discarded from Java.
+• By reducing the use of pointers, Java decreases security concerns and dangers. In addition, each Java program has a Security manager that allows us to create class access rules.
+• It is a platform-independent language. Apart from Windows and Mac OS,different platforms where Java is supported are Sun Solaris, RedhatLinux, CentOS, Ubuntu, etc.
+• Since it follows the concept of object-oriented programming language, it enhances the flexibility and reusability of the program. In Java, the Java Virtual Machine handles automatic
+memory management. With the help of the automated Garbage Collection process, Java destroys unused objects automatically.
+• Java is considered to be a stable and distributable language as it provides a way for several computers to share data and applications, allowing the system to run faster and more
+efficiently.
+• Because Java programs require a specific hardware infrastructure to execute, they are inexpensive to design and maintain. We can quickly perform them on any system, which saves
+money on maintenance.
+• Java is a multithreaded language, which means that it allows multiple threads to run at the same time. Multithreading allows us to get the most out of our computer’s processing power.
+• Since Java is Write once run anywhere which makes it a platform-independent language, it also makes it a portable language. Hence, Java is portable.
