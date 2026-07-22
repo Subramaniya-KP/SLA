@@ -1,0 +1,14 @@
+import java.util.Scanner;
+
+public class ScannerAssignment {
+
+	public static void main(String[] args) {
+		Scanner scannerObj = new Scanner(System.in);
+		System.out.println("Enter the student's name, Subject, Marks :");
+		String inputText = scannerObj.nextLine();
+		System.out.println("Input: "+inputText);
+		System.out.println("Output: "+inputText);
+		scannerObj.close();
+	}
+
+}
