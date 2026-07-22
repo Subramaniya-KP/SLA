@@ -1,0 +1,21 @@
+//1st question
+public class LoopingStatementAssignment {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		int i = 10;
+		//Since there is no limit for the table of multiplication of numbers, coding until 10*10
+		System.out.println("Multiplication table of "+i);
+		for (int y=1;y<=10;y++) {
+			System.out.println(i + " X " + y + " = " + (i*y));
+		}
+	}
+
+}
+//2nd question
+/*Difference between For Loop and While loop
+ * For loop needs initialisation, condition and increment and decrement to perform the action with the loop so that number of iterations can be determined
+ * for(initialisation,condition,incremement/decrement){//code to be executed repeatedly}
+  * While loop just needs a condition to perform its action within the loop and its continuous until the condition is true; therefore number of iterations cannot be determined
+  * while(condition){//code to be executed repeatedly}
+ */
