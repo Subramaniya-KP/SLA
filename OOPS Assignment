@@ -1,0 +1,51 @@
+class Employee{
+	int empid;
+	String empname;
+	String empdep;
+	String empsal;
+	
+	void doTask()
+	{
+			System.out.println("Do your daily duty");
+	}
+	
+	void assignTask(String emprole)
+	{
+		if(emprole.equalsIgnoreCase("Developer")) {
+		System.out.println("Build the app and develop the payment module");
+		}
+		else if(emprole.equalsIgnoreCase("Tester"))
+		{
+			System.out.println("Write test cases for the payment module");
+		}
+		else if(emprole.equalsIgnoreCase("ScrumMaster"))
+		{
+			System.out.println("Organize and arrange the scrum activities for the team");
+		}
+		else if(emprole.equalsIgnoreCase("EO"))
+		{
+			System.out.println("Manage the team and write requirement for stories");
+		}
+		else
+		{
+			System.out.println("Invalid Role");
+		}
+	}
+}
+public class OOPS {
+
+	public static void main(String[] args) {
+		Employee emp1 = new Employee();
+		emp1.empid = 1001;
+		emp1.empname="Henry";
+		emp1.empdep="DEV";
+		emp1.empsal="Rs.100000";
+		System.out.println("EmpID: "+emp1.empid);
+		System.out.println("EmpName: "+emp1.empname);
+		System.out.println("EmpDep: "+emp1.empdep);
+		System.out.println("Salary: "+emp1.empsal);
+		emp1.assignTask("Developer");
+		emp1.doTask();
+	}
+}
+
