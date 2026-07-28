@@ -1,0 +1,13 @@
+public class StudentMark {
+
+	public static void main(String[] args) {
+		//Assigning random values to student  in an array
+    int [] studentMarks = {85,90,95,96,98,100};
+		for(int i=0;i<=studentMarks.length-1;i++)
+		{
+			System.out.println("Student "+ (i+1) + " Marks: "+ studentMarks[i]);
+		}
+
+	}
+
+}
