@@ -1,0 +1,18 @@
+public class NumbersDivisble {
+
+	public static void main(String[] args) {
+		int i = 10;
+		System.out.println("Numbers divisble by 10 from 1 to 100 in reverse order "+i);
+		for (int y=100;y>=1;y--) {
+			if(y%10==0)
+			{
+				System.out.println(y);
+			}
+			else
+			{
+				continue;
+			}
+		}
+	}
+
+}
