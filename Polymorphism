@@ -1,0 +1,39 @@
+class Employee {
+	public int Role(String Designation)
+	{
+		if(Designation.equalsIgnoreCase("Sales Man"))
+		{
+			return 10000;
+		}
+		else {
+			return 0;
+		}
+		
+	}
+	public String Role(int Salary)
+	{
+		if(Salary==10000) {
+			return "Sales Man";
+		}
+		else
+		{
+			return "Unknown designation";
+		}
+	}
+	
+}
+public class Polymorphism {
+	
+	public static void main(String[] args) {
+		//cases for the positive execution are below
+		
+		Employee poly = new Employee();
+		String desResult = poly.Role(10000);
+		System.out.println("The employee with that salary is "+desResult);
+		
+		int saldes = poly.Role("Sales Man");
+		System.out.println("The employee as a sales man earns " +saldes);
+		
+	}
+
+}
