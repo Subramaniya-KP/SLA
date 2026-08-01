@@ -1,0 +1,116 @@
+//First question
+public interface Exam {
+	//An interface is a fully abstract class. It includes a group of abstract methods without a body.
+	//The interface keyword would be used to create an interface in JAVA. Example below:
+
+	String objecte ="Examination";
+	void EnglishExam();
+	void MathsExam();
+}
+import Aug1.Exam;
+
+public class StudentExam implements Exam{
+	//We cannot create objects of interface
+	//To use an interface, other classes must implement it. We use the implement keyword to implement an interface as seen above and below.
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		StudentExam objExam = new StudentExam();
+		objExam.EnglishExam();
+		objExam.MathsExam();
+		System.out.println(StudentExam.objecte);
+	}
+
+	@Override
+	public void EnglishExam() {
+		// TODO Auto-generated method stub
+		System.out.println("Prepare and write the english examination");
+	}
+
+	@Override
+	public void MathsExam() {
+		// TODO Auto-generated method stub
+		System.out.println("Prepare and write the maths examination");
+	}
+
+}
+
+//Second question
+
+//Method overloading happens when methods share a name but have different parameters in one single class. Overloading must have different parameters. It is resolved by complier at compile time.
+//Method overriding happens when a child class remakes a parent class method with the exact same name and parameters. Requires two classes linked by inheritance. Also must have same exact parameters. It is resolved by system at run time.
+
+class Present{
+	String printing() {
+		return "I am  from parent class";
+	}
+}
+class Child extends Present{
+	@Override
+	String printing() {
+		return "I'm from child class";
+	}
+}
+//Overloading example
+class calculate {
+	
+	int add(int a,int b)
+	{
+		System.out.println("Adding of two numbers: "+(a+b));
+		return (a+b);
+		
+	}
+	
+	int add(int c,int d, int e)
+	{
+		System.out.println("Adding of three numbers: "+(c+d+e));
+		return (c+d+e);
+	}
+}
+
+
+public class MethodOverriding {
+	
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Child ch = new Child();
+		ch.printing();
+		System.out.println("We have overridden the printing method through the child class and the output is "+ch.printing());
+		calculate mo = new calculate();
+		mo.add(5, 10);
+		mo.add(5, 15, 20);
+	}
+
+}
+
+//third question
+//Syntax error occurs when the code violates the grammar rule of the language and it cannot be understood by the system and it will not allow the user to run the program unless resolved.
+//For example: system.out.pln("Hello") [This would show a syntax error saying system cannot be resolved since it didn't follow the grammar rule of the language
+//where as an exception occurs during the execution of the program eventhough the grammar rule of the language are correct.
+//For example: bad input, if for a array length of 4, we try to get output of the 5th element we will see an arrayindexoutofbound exception error.
+
+public class ExampleException {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		try {
+			int a=6/0;
+			System.out.println(a);
+			}
+			catch (ArithmeticException e)
+			{
+			System.out.println("After exception. It is an arithmetic exception");
+			}
+		try {
+			int numbers[] = {3,6,7,8,9};
+			System.out.println("Print the 6th element of the array of number:" +numbers[6]);
+		}
+		catch(ArrayIndexOutOfBoundsException e)
+		{
+			System.out.println("After exception. It is an arrayindexoutofbounds exception");
+			
+		}
+		
+	}
+
+}
