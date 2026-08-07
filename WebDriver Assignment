@@ -1,0 +1,24 @@
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class Webdriverassn {
+
+	public static void main(String[] args) throws InterruptedException{
+		// TODO Auto-generated method stub
+		WebDriver driver = new ChromeDriver();
+		String url = "https://www.demoblaze.com/";
+		driver.manage().window().maximize();
+		driver.get(url);
+		Thread.sleep(4000);
+		String urladd = driver.getCurrentUrl();
+		System.out.println(urladd);
+		driver.findElement(By.xpath("//a[text()='Contact']")).click();
+		String src = driver.getPageSource();
+		Thread.sleep(2000);
+		boolean email = src.contains("Contact Email:");
+		System.out.println(email);
+		driver.close();
+	}
+
+}
