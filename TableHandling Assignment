@@ -1,0 +1,56 @@
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
+import java.util.List;
+
+public class TableHandle {
+	
+    public static void main(String[] args) throws InterruptedException {
+        WebDriver driver = new ChromeDriver();
+            driver.manage().window().maximize();
+            driver.get("https://vinothqaacademy.com/webtable/");
+
+            // Wait until the table is loaded
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+            Thread.sleep(5000);
+            WebElement table = wait.until(ExpectedConditions.presenceOfElementLocated(By.id("myTable")));
+            new Actions(driver).scrollToElement(table).perform();
+
+            // 1. Extract and print Table Headers
+            List<WebElement> headers = table.findElements(By.xpath("//th"));
+            System.out.println("TABLE HEADERS:");
+            for (WebElement header : headers) {
+                String headerText = header.getText().trim();
+                if (!headerText.isEmpty()) {
+                    System.out.print(headerText + " \t ");
+                }
+            }
+            System.out.println();
+      
+            List<WebElement> rows = driver.findElements(By.xpath("//table[@id='myTable']/tbody/tr"));
+            for(WebElement row: rows) {
+    			List<WebElement> datas = row.findElements(By.tagName("td"));
+    			for(WebElement data: datas)
+    			{
+    				if(!data.getText().isEmpty())
+    				{
+    				System.out.print(data.getText());
+    				System.out.print("\t");
+    				}
+    				else
+    				{
+    					System.out.println();
+    					System.out.print(" \t ");
+    				}
+    			}
+    		}
+            driver.quit();
+    }
+            
+}
