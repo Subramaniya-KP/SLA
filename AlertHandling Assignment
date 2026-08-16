@@ -1,0 +1,52 @@
+
+import org.openqa.selenium.Alert;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class AlertHandling {
+
+	public static void main(String[] args) throws InterruptedException {
+		// TODO Auto-generated method stub
+		WebDriver driver = new ChromeDriver();
+		driver.get("https://www.tutorialspoint.com/selenium/practice/alerts.php");
+		driver.findElement(By.xpath("//button[@onclick='showAlert()']")).click();
+		Alert a = driver.switchTo().alert();
+		Thread.sleep(3000);
+		String msg = a.getText();
+		System.out.println(msg);
+		a.accept();
+		
+		driver.findElement(By.xpath("//button[@onclick='myDesk()']")).click();
+		Alert b = driver.switchTo().alert();
+		Thread.sleep(3000);
+		String msg1 = a.getText();
+		System.out.println(msg1);
+		b.accept();
+		WebElement desk= driver.findElement(By.id("desk"));
+		System.out.println("The text appearing after accepting the alert is: "+desk.getText());
+		driver.findElement(By.xpath("//button[@onclick='myDesk()']")).click();
+		Alert c = driver.switchTo().alert();
+		Thread.sleep(3000);
+		c.dismiss();
+		System.out.println("The text appearing after dismissing the alert is: "+desk.getText());
+		
+		driver.findElement(By.xpath("//button[@onclick='myPromp()']")).click();
+		Alert d = driver.switchTo().alert();
+		String msg2 = a.getText();
+		System.out.println(msg2);
+		String name = "Mehidy Hasan";
+		d.sendKeys(name);
+		System.out.println("The name is entered as "+name);
+		Thread.sleep(3000);
+		d.accept();
+		driver.findElement(By.xpath("//button[@onclick='myPromp()']")).click();
+		Alert e = driver.switchTo().alert();
+		Thread.sleep(3000);
+		e.dismiss();
+		
+		driver.close();
+		}
+
+}
