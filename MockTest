@@ -1,0 +1,141 @@
+//Core Java program to find a prime number
+
+package tests;
+
+import java.util.Scanner;
+
+public class PrimeNumbers {
+	
+	public static boolean isPrime(int n) {
+		
+		if(n<=1)
+		{
+			return false;
+		}
+		
+		if(n==2)
+		{
+			return true;
+		}
+		
+		if(n%2==0)
+		{
+			return false;
+		}
+		
+		for(int i=3; i*i<=n;i+=2)
+			
+		{
+			if(n%i==0)
+			{
+				return false;
+			}
+		}
+		
+		return true;
+	}
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+	Scanner scanner = new Scanner(System.in);
+
+		System.out.println("Enter a number: ");
+		int number = scanner.nextInt();
+		
+		if(isPrime(number))
+		{
+			System.out.println(number + " is a prime number");
+		}
+		else
+		{
+			System.out.println(number + " is not a prime number");
+		}
+		
+		scanner.close();
+	}
+
+}
+
+//Selenium
+
+// 1.  Write possible xpath for coffee
+li[@name='cf']
+li[text()=' Coffee']
+
+//2. Write a possible css selector for the button
+driver.findElement(By.cssSelector("#btn"));
+
+//3. Difference between find element and findElements along with a simple program
+Find Element:
+Returns a single webelement from the page, it always finds and gives the first matching element on it. Throws a no such element exception when no element is found.
+
+Find Elements:
+Returns a list of webelements found on the page and finds all matching elements on them. It returns a empty size array without throwing an exception if no elements are found.
+
+Example:
+package assignment;
+
+import java.util.List;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class DiffBtwFeandFes {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		WebDriver driver = new ChromeDriver();
+		driver.manage().window().maximize();
+		driver.get("https://www.saucedemo.com/");
+		WebElement login = driver.findElement(By.id("login-button"));
+		System.out.println("Printing the single webelement found on the page for login: " + login.getAttribute("value"));
+	
+		List<WebElement> h4Texts = driver.findElements(By.tagName("h4"));
+		System.out.println("Printing the webelements in the page below: ");
+		for(WebElement i : h4Texts) {
+			System.out.println(i.getText());
+		}
+		
+		driver.quit();
+	}
+
+}
+//4. Write a program for window handling
+
+package assignment;
+
+import java.util.Set;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class WindowHandling {
+
+	public static void main(String[] args) throws InterruptedException {
+		// TODO Auto-generated method stub
+		WebDriver driver = new ChromeDriver();
+		driver.get("https://vinothqaacademy.com/multiple-windows/");
+		Thread.sleep(6000);
+		String parentHandle = driver.getWindowHandle();
+		driver.findElement(By.name("newbrowserwindow123")).click();
+		Set<String> handles = driver.getWindowHandles();
+		for (String childhandle: handles)
+		{
+			if(!childhandle.equals(parentHandle))
+			{
+				driver.switchTo().window(childhandle);
+				System.out.println("Child Window "+driver.getCurrentUrl());
+			}
+		}
+		
+		driver.quit();
+
+	}
+
+}
+
+    
+    
