@@ -1,0 +1,33 @@
+CREATE DATABASE library;
+USE LIBRARY;
+CREATE TABLE BOOKS(
+book_id int primary key auto_increment,
+title varchar(100) not null,
+author varchar(50) not null,
+category varchar(30),
+price decimal(8,2),
+quantity int,
+published_year int
+);
+describe BOOKS;
+select * from books;
+
+insert into books(book_id, title, author, category, price, quantity, published_year) values
+(1, 'The Alchemist', 'Paulo Coelho', 'Philosophical Adventure', 300.35, 12, 1988),
+(2, 'Atomic Habits', 'James Clear', 'Non Fiction', 482.99, 8, 2018),
+(3, 'Clean Code', 'Robert C Martin', 'Programming', 4200.50, 15, 2008),
+(4, 'Rich Dad Poor Dad', 'Robert Kiyosaki', 'Money Management', 480.00, 5, 1997),
+(5, 'Harry Potter and the Deathly Hallows', 'JK Rowling', 'Fiction', '780.50', 50, 2007);
+
+update books set price = (price - 100) where title = 'Atomic Habits';
+update books set quantity = (quantity - 5) where title = 'Clean Code';
+update books set category = 'Financial Savings' where title = 'Rich Dad Poor Dad';
+update books set published_year = 1989 where title = 'The Alchemist';
+update books set author = 'Sharon Lechter' where title = 'Rich Dad Poor Dad';
+
+delete from books where title = 'The Alchemist';
+delete from books where title = 'Clean Code';
+delete from books where title = 'Programming';
+delete from books where quantity<10;
+delete from books where book_id = 3;
+truncate table books;
