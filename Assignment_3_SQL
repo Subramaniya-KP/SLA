@@ -1,0 +1,57 @@
+-- SELECT (Books Table)
+
+-- 1. Display all the records from the Books table.
+Select * from books;
+-- 2. Display only the Book Name and Author of all books.
+Select title, author from books;
+-- 3. Display all books that belong to the Programming category.
+Select * from books where category = 'Programming';
+-- 4. Display all books whose price is greater than ₹500.
+Select * from books where price>500;
+-- 5. Display all books whose quantity is less than 10.
+Select * from books where quantity<10;
+-- 6. Display all books published after the year 2020.
+Select * from books where published_year>2020;
+-- 7.Display all books written by James Clear.
+Select * from books where author = 'James Clear';
+-- 8. Display all books whose price is between ₹300 and ₹700.
+Select * from books where price between 300 and 700;
+-- 9. Display all books that belong to either the Fiction or Self-Help category.
+Select * from books where category = 'Fiction' or category = 'Self-Help';
+-- 10. Display all books in descending order of price.
+Select * from books order by price desc;
+-- 11. Display all books in ascending order of published year.
+Select * from books order by published_year asc;
+-- 12. Display only the Book Name, Price, and Quantity of all books.
+Select title, price, quantity from books;
+-- 13. Display all books whose Book ID is between 2 and 5.
+Select * from books where book_id between 2 and 5;
+-- 14. Display all books whose author name starts with 'R'.
+Select * from books where author like 'R%' ;
+-- 15. Display all books except those in the Programming category
+Select * from books where category != "Programming";
+
+-- ORDER BY – Practice Questions (Books Table)
+
+-- 1. Display all books with a price greater than ₹500, sorted by price in descending order.
+select * from books where price>500 order by price desc;
+-- 2. Display all books in the Programming category, sorted by published year from newest to oldest.
+select * from books where category = "Programming" order by published_year desc;
+-- 3. Display all books whose quantity is less than 10, sorted by book name alphabetically
+select * from books where quantity<10 order by title asc;
+-- 4. Display all books published between 2015 and 2023, sorted by published year in ascending order.
+select * from books where published_year between 2015 and 2023 order by published_year asc;
+-- 5. Display all books in the Fiction or Self-Help category, sorted by price from highest to lowest.
+select * from books where category = 'Fiction' or category = 'Self-Help' order by price desc;
+-- 6. Display all books sorted first by category (A–Z) and then by price (lowest to highest).
+select * from books order by category asc, price asc;
+-- 7. Display all books sorted first by author name (A–Z) and then by published year (newest first).
+select * from books order by author asc, published_year desc;
+-- 8. Display all books whose price is between ₹300 and ₹800, sorted by quantity in descending order.
+select * from books where price between 300 and 800 order by quantity desc;
+-- 9. Display all books except those in the Programming category, sorted by book name in alphabetical order.
+select * from books where category != "Programming" order by title asc;
+-- 10. Display all books sorted first by published year (newest first) and, if two books have the same year, sort them by price (highest first).
+select * from books order by published_year desc, price desc;
+
+
