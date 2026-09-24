@@ -1,0 +1,31 @@
+-- Aggregate Function Practice (Books Table)
+
+-- 1. Find the total number of books available in the library.
+select sum(quantity) from books;
+
+-- 2. Find the total quantity of all books available in the library.
+select sum(quantity) from books;
+
+-- 3. Find the average price of all books.
+select avg(price) from books;
+
+-- 4. Find the highest-priced book in the library.
+select max(price) from books;
+
+-- 5. Find the lowest-priced book in the library.
+select min(price) from books;
+
+-- 6. Find the total number of books in the Programming category.
+select count(*) from books where category = "Programming";
+
+-- 7. Find the total quantity of books in the Fiction category.
+select count(*) from books where category = "Fiction";
+
+-- 8. Find the average price of books published after the year 2020.
+select avg(price) from books where published_year = 2020;
+
+-- 9. Find the highest price among Self-Help books.
+select max(price) from books where category = "Self-Help";
+
+-- 10. Find the lowest price among books with a quantity greater than 10.
+select min(price) from books where quantity>10;
