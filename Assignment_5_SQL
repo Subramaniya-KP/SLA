@@ -1,0 +1,31 @@
+-- GROUP BY & HAVING Practice (Books Table)
+
+-- 1. Display the total number of books in each category.
+SELECT category, COUNT(*) AS total_books FROM books GROUP BY category;
+
+-- 2. Display the average price of books in each category.
+SELECT category, avg(price) AS average_price FROM books GROUP BY category;
+
+-- 3. Display the highest-priced book in each category.
+SELECT category, max(price) AS max_price FROM books GROUP BY category;
+
+-- 4. Display the lowest-priced book in each category.
+SELECT category, min(price) AS min_price FROM books GROUP BY category;
+
+-- 5. Display the total quantity of books in each category.
+SELECT category, sum(quantity) AS total_quantity FROM books GROUP BY category;
+
+-- 6. Display the categories that have more than 2 books.
+SELECT category, COUNT(*) AS book_count FROM books GROUP BY category HAVING COUNT(*)>2 ;
+
+-- 7. Display the categories whose average book price is greater than ₹500.
+SELECT category, avg(price) AS average_price FROM books GROUP BY category HAVING avg(price)>500;
+
+-- 8. Display the categories whose total quantity of books is greater than 20.
+SELECT category, sum(quantity) AS total_quantity FROM books GROUP BY category HAVING sum(quantity)>20;
+
+-- 9. Display the categories whose highest book price is greater than ₹1000.
+SELECT category, max(price) AS highest_book_price FROM books GROUP BY category HAVING max(price)>1000;
+
+-- 10. Display the categories whose lowest book price is less than ₹300.
+SELECT category, min(price) AS lowest_book_price FROM books GROUP BY category HAVING min(price)<300;
