@@ -1,0 +1,102 @@
+-- 1. Create a database named hospital_db.
+
+create database hospital_db;
+use hospital_db;
+
+-- 2. Create a patients table with patient_id, patient_name, age, gender, 
+-- phone, and city. Make patient_id automatically generate numbers and uniquely
+-- identify each patient. Make patient_name mandatory.
+
+create table patients(
+patient_id int auto_increment primary key,
+patient_name varchar(50) not null,
+age int,
+gender char(1),
+phone varchar(15),
+city varchar(30)
+);
+
+-- 3. Add a blood_group column to the patients table.
+
+alter table patients add column blood_group varchar(5);
+
+-- 4. Change the size of the patient_name column to allow up to 100 characters.
+
+alter table patients modify patient_name varchar(100) not null;
+
+-- 5. Insert 8 different patient records into the patients table.
+
+insert into patients(patient_id,patient_name,age,gender,phone,city,blood_group) values
+(1, 'John Doe', 34, 'M', '555-0101', 'New York', 'A+'),
+(2, 'Jane Smith', 28, 'F', '555-0102', 'Los Angeles', 'O-'),
+(3, 'Michael Brown', 45, 'M', '555-0103', 'Chicago', 'B+'),
+(4, 'Emily Davis', 52, 'F', '555-0104', 'Houston', 'AB+'),
+(5, 'David Wilson', 23, 'M', '555-0105', 'Phoenix', 'O+'),
+(6, 'Sarah Martinez', 31, 'F', '555-0106', 'Philadelphia', 'A-'),
+(7, 'James Anderson', 60, 'M', '555-0107', 'San Antonio', 'B-'),
+(8, 'Amanda Thomas', 19, 'F', '555-0108', 'Chennai', 'AB-');
+
+-- 6. Increase the age by 1 for all patients whose age is between 20 and 25.
+
+update patients set age = (age+1) where age between 20 and 25;
+
+-- 7. Change the city to Chennai for patients currently living in either Madurai or Salem.
+
+update patients set city = "Salem" where city = "Chennai";
+
+-- 8. Remove all patients whose age is above 60.
+
+delete from patients where age>60;
+
+-- 9. Remove the patients whose IDs are 2, 5, and 7.
+
+delete from patients where patient_id in (2,5,7);
+
+-- 10.  Display the patient name, age, and city of patients whose age is between 25 and 40
+
+select patient_name, age, city from patients where age between 25 and 40;
+
+-- 11. Display patients who are female and below 30 years old, or male and above 50 years old.
+
+select * from patients where (gender = "F" and age<30) OR (gender = "M" and age>50);
+
+-- 12. Display all patients from the oldest to the youngest. For patients with the same age,
+-- display their names alphabetically
+
+select * from patients order by age desc, patient_name asc;
+
+-- 13. Display the names of patients whose names contain the letter r
+
+select * from patients where patient_name like "%r%";
+
+-- 14. Display the names of patients whose names contain exactly 5 characters.
+
+select patient_name from patients where length(trim(patient_name))=5;
+
+-- 15. Find the total number of female patients.
+
+select count(*) as total_number from patients where gender = "F";
+
+-- 16.  Display each city along with the number of patients living in that city.
+
+select city, count(*) as number_patients from patients group by city;
+
+-- 17. Display the average age of patients for each gender. Show only genders whose average age is above 30.
+
+select gender, avg(age) as average_age from patients group by gender having avg(age)>30;
+
+-- 18. Find the youngest patient from each city. Display only cities where the youngest patient is at least 25 years old.
+ 
+ select city, min(age) from patients group by city having min(age)>=25;
+ 
+ -- 19. Write SQL queries to find the month and year from the date 2026-09-26, and find
+-- the number of days between 2026-09-26 and 2026-10-15.
+
+select month('2026-09-26') as month, year('2026-09-26') as year;
+select datediff('2026-10-15', '2026-09-26') as number_of_days_between;
+
+-- 20. Display patient names in uppercase, display the first 3 characters of each name, add
+-- - Patient after each name, and replace Chennai with CHN in the city values.
+
+select upper(patient_name) as uppercase_names, left(patient_name,3) as first_three_char, 
+concat(patient_name, '- Patient') as concated_name, replace(city, 'Chennai', 'CHN') as updated_city from patients;
