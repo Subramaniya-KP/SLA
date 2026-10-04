@@ -1,0 +1,129 @@
+use companydb;
+
+CREATE TABLE Authors (
+    author_id INT PRIMARY KEY,
+    author_name VARCHAR(100),
+    country VARCHAR(50)
+);
+
+CREATE TABLE Categories (
+    category_id INT PRIMARY KEY,
+    category_name VARCHAR(100)
+);
+
+CREATE TABLE Publishers (
+    publisher_id INT PRIMARY KEY,
+    publisher_name VARCHAR(100),
+    city VARCHAR(50)
+);
+
+CREATE TABLE Books(
+book_id int primary key auto_increment,
+title varchar(100) not null,
+author varchar(50) not null,
+category varchar(30),
+price decimal(8,2),
+quantity int,
+published_year int
+);
+
+ALTER TABLE Books
+ADD author_id INT,
+ADD category_id INT,
+ADD publisher_id INT;
+
+CREATE TABLE Related_Books (
+    book_id INT,
+    related_book_id INT,
+    PRIMARY KEY (book_id, related_book_id)
+);
+
+INSERT INTO Authors (author_id, author_name, country) VALUES
+(1, 'J.K. Rowling', 'United Kingdom'),
+(2, 'George Orwell', 'United Kingdom'),
+(3, 'Stephen King', 'United States'),
+(4, 'Agatha Christie', 'United Kingdom');
+
+INSERT INTO Categories (category_id, category_name) VALUES
+(1, 'Fantasy'),
+(2, 'Dystopian'),
+(3, 'Horror'),
+(4, 'Romance');
+
+INSERT INTO Publishers (publisher_id, publisher_name, city) VALUES
+(1, 'Bloomsbury', 'London'),
+(2, 'Secker & Warburg', 'London'),
+(3, 'Penguin Random House', 'New York');
+
+
+INSERT INTO Related_Books (book_id, related_book_id) VALUES
+(2, 4), -- 1984 is related to Animal Farm
+(4, 2); -- Animal Farm is related to 1984
+
+INSERT INTO Books (book_id, title, author, category, price, quantity, published_year, author_id, category_id, publisher_id) VALUES
+(1, 'Harry Potter and the Sorcerers Stone', 'J.K. Rowling', 'Fantasy', 19.99, 150, 1997, 1, 1, 1),
+(2, '1984', 'George Orwell', 'Dystopian', 14.99, 200, 1949, 2, 2, 2),
+(3, 'The Shining', 'Stephen King', 'Horror', 22.50, 85, 1977, 3, 3, 2),
+(4, 'Animal Farm', 'George Orwell', 'Dystopian', 10.99, 120, 1945, 2, 2, 1),
+(5, 'Orphan Book', 'Anna Hathway', 'Fantasy', 9.99, 10, 2020, 2, 2, 2);
+
+-- Part 2 Inner Join 
+-- Display the book title and author name.
+
+SELECT b.title, a.author_name FROM Books b INNER JOIN Authors a ON b.author_id = a.author_id;
+
+SELECT b.title, c.category_name FROM Books b INNER JOIN Categories c ON b.category_id = c.category_id;
+
+SELECT b.title, p.publisher_name FROM Books b INNER JOIN Publishers p ON b.publisher_id = p.publisher_id;
+
+SELECT b.title, a.author_name, c.category_name FROM Books b INNER JOIN Authors a ON b.author_id = a.author_id INNER JOIN Categories c ON b.category_id = c.category_id;
+
+SELECT b.title, a.author_name, c.category_name, p.publisher_name FROM Books b INNER JOIN Authors a ON b.author_id = a.author_id INNER JOIN Categories c ON b.category_id = c.category_id INNER JOIN Publishers p ON b.publisher_id = p.publisher_id;
+
+-- Part 3 Left Join
+
+SELECT b.title, a.author_name FROM Books b LEFT JOIN Authors a ON b.author_id = a.author_id;
+
+SELECT b.title, c.category_name FROM Books b LEFT JOIN Categories c ON b.category_id = c.category_id;
+
+SELECT b.title, p.publisher_name FROM Books b LEFT JOIN Publishers p ON b.publisher_id = p.publisher_id;
+
+SELECT a.author_name, b.title FROM Authors a LEFT JOIN Books b ON a.author_id = b.author_id;
+
+SELECT c.category_name, b.title FROM Categories c LEFT JOIN Books b ON c.category_id = b.category_id;
+
+-- PART 4 RIGHT JOIN 
+
+SELECT b.title, a.author_name FROM Books b RIGHT JOIN Authors a ON b.author_id = a.author_id;
+
+SELECT b.title, c.category_name FROM Books b RIGHT JOIN Categories c ON b.category_id = c.category_id;
+
+SELECT b.title, p.publisher_name FROM Books b RIGHT JOIN Publishers p ON b.publisher_id = p.publisher_id;
+
+SELECT p.publisher_name, b.title FROM Books b RIGHT JOIN Publishers p ON b.publisher_id = p.publisher_id;
+
+SELECT a.author_name, b.title FROM Books b RIGHT JOIN Authors a ON b.author_id = a.author_id;
+
+-- PART 5 FULL OUTER JOIN (USING UNION) 
+
+SELECT b.title, a.author_name FROM Books b LEFT JOIN Authors a ON b.author_id = a.author_id UNION SELECT b.title, a.author_name FROM Books b RIGHT JOIN Authors a ON b.author_id = a.author_id;
+
+SELECT b.title, c.category_name FROM Books b LEFT JOIN Categories c ON b.category_id = c.category_id UNION SELECT b.title, c.category_name FROM Books b RIGHT JOIN Categories c ON b.category_id = c.category_id;
+
+SELECT b.title, p.publisher_name FROM Books b LEFT JOIN Publishers p ON b.publisher_id = p.publisher_id UNION SELECT b.title, p.publisher_name FROM Books b RIGHT JOIN Publishers p ON b.publisher_id = p.publisher_id;
+
+SELECT a.author_name, b.title FROM Authors a LEFT JOIN Books b ON a.author_id = b.author_id UNION SELECT a.author_name, b.title FROM Authors a RIGHT JOIN Books b ON a.author_id = b.author_id;
+
+SELECT c.category_name, b.title FROM Categories c LEFT JOIN Books b ON c.category_id = b.category_id UNION SELECT c.category_name, b.title FROM Categories c RIGHT JOIN Books b ON c.category_id = b.category_id;
+
+-- PART 6 SELF JOIN
+
+SELECT b1.title AS book_title, b2.title AS related_book_title FROM Related_Books rb JOIN Books b1 ON rb.book_id = b1.book_id JOIN Books b2 ON rb.related_book_id = b2.book_id;
+
+SELECT b1.title AS book_title, b2.title AS recommended_book_title FROM Related_Books rb JOIN Books b1 ON rb.book_id = b1.book_id JOIN Books b2 ON rb.related_book_id = b2.book_id;
+
+SELECT b1.title AS book_title FROM Books b1 JOIN Related_Books rb ON b1.book_id = rb.book_id;
+
+SELECT b.title AS book_title FROM Books b LEFT JOIN Related_Books rb ON b.book_id = rb.book_id WHERE rb.book_id IS NULL;
+
+SELECT b1.title AS book_title, b2.title AS related_book_title FROM Books b1 LEFT JOIN Related_Books rb ON b1.book_id = rb.book_id LEFT JOIN Books b2 ON rb.related_book_id = b2.book_id;
