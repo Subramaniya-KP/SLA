@@ -1,0 +1,22 @@
+use companydb;
+
+SELECT * FROM Books WHERE price = (SELECT MAX(price) FROM Books);
+
+SELECT * FROM Books WHERE price = (SELECT MIN(price) FROM Books);
+
+SELECT * FROM Books WHERE price > (SELECT AVG(price) FROM Books);
+
+SELECT * FROM Books WHERE price < (SELECT AVG(price) FROM Books);
+
+SELECT * FROM Books WHERE quantity = (SELECT MAX(quantity) FROM Books);
+
+SELECT * FROM Books WHERE quantity = (SELECT MIN(quantity) FROM Books);
+
+SELECT * FROM Books WHERE published_year = (SELECT MAX(published_year) FROM Books);
+
+SELECT * FROM Books WHERE published_year = (SELECT MIN(published_year) FROM Books);
+
+SELECT * FROM Books WHERE price = (SELECT AVG(price) FROM Books);
+
+SELECT * FROM Books WHERE quantity > (SELECT AVG(quantity) FROM Books);
+
