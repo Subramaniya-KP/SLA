@@ -1,0 +1,135 @@
+use companydb;
+
+-- PART 1
+
+DELIMITER //
+CREATE PROCEDURE displayAllBooks()
+BEGIN
+    SELECT * FROM Books;
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE GetBooksByCategory(IN cat_name VARCHAR(100))
+BEGIN
+    SELECT b.* 
+    FROM Books b 
+    JOIN Categories c ON b.category_id = c.category_id 
+    WHERE c.category_name = cat_name;
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE GetBooksByAuthor(IN auth_name VARCHAR(100))
+BEGIN
+    SELECT b.* 
+    FROM Books b 
+    JOIN Authors a ON b.author_id = a.author_id 
+    WHERE a.author_name = auth_name;
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE GetBooksPriceGreaterThan(IN min_price DECIMAL(10,2))
+BEGIN
+    SELECT * FROM Books 
+    WHERE price > min_price;
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE GetBooksPublishedAfter(IN given_year INT)
+BEGIN
+    SELECT * FROM Books 
+    WHERE published_year > given_year;
+END //
+DELIMITER ;
+
+-- PART 2
+
+DELIMITER //
+CREATE PROCEDURE CountBooksByCategory(IN cat_name VARCHAR(100), OUT total_books INT)
+BEGIN
+    SELECT COUNT(b.book_id) INTO total_books
+    FROM Books b
+    JOIN Categories c ON b.category_id = c.category_id
+    WHERE c.category_name = cat_name;
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE TotalQuantityByCategory(IN cat_name VARCHAR(100), OUT total_qty INT)
+BEGIN
+    SELECT SUM(b.quantity) INTO total_qty
+    FROM Books b
+    JOIN Categories c ON b.category_id = c.category_id
+    WHERE c.category_name = cat_name;
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE AvgPriceByCategory(IN cat_name VARCHAR(100), OUT avg_prc DECIMAL(10,2))
+BEGIN
+    SELECT AVG(b.price) INTO avg_prc
+    FROM Books b
+    JOIN Categories c ON b.category_id = c.category_id
+    WHERE c.category_name = cat_name;
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE MaxPriceByCategory(IN cat_name VARCHAR(100), OUT max_prc DECIMAL(10,2))
+BEGIN
+    SELECT MAX(b.price) INTO max_prc
+    FROM Books b
+    JOIN Categories c ON b.category_id = c.category_id
+    WHERE c.category_name = cat_name;
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE MinPriceByCategory(IN cat_name VARCHAR(100), OUT min_prc DECIMAL(10,2))
+BEGIN
+    SELECT MIN(b.price) INTO min_prc
+    FROM Books b
+    JOIN Categories c ON b.category_id = c.category_id
+    WHERE c.category_name = cat_name;
+END //
+DELIMITER ;
+
+-- PART 3
+
+DELIMITER //
+CREATE PROCEDURE IncreaseBookPrice(INOUT book_price DECIMAL(10,2))
+BEGIN
+    SET book_price = book_price + 100.00;
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE DecreaseBookPrice(INOUT book_price DECIMAL(10,2))
+BEGIN
+    SET book_price = book_price - 50.00;
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE IncreaseBookQuantity(INOUT book_qty INT)
+BEGIN
+    SET book_qty = book_qty + 10;
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE DecreaseBookQuantity(INOUT book_qty INT)
+BEGIN
+    SET book_qty = book_qty - 5;
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE ApplyDiscount(INOUT book_price DECIMAL(10,2))
+BEGIN
+    SET book_price = book_price - (book_price * 0.10);
+END //
+DELIMITER ;
