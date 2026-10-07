@@ -1,0 +1,123 @@
+create database booksData;
+use booksData;
+
+-- Main books table
+CREATE TABLE books (
+    book_id INT PRIMARY KEY AUTO_INCREMENT,
+    title VARCHAR(250) NOT NULL,
+    price DECIMAL(10, 2) NOT NULL,
+    quantity INT NOT NULL
+);
+
+-- Log table for inserts and updates
+CREATE TABLE book_log (
+    log_id INT PRIMARY KEY AUTO_INCREMENT,
+    book_id INT,
+    title VARCHAR(250),
+    action_type VARCHAR(50),
+    log_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Table for storing deleted book details
+CREATE TABLE deleted_books (
+    deleted_id INT PRIMARY KEY AUTO_INCREMENT,
+    book_id INT,
+    title VARCHAR(250),
+    price DECIMAL(10, 2),
+    quantity INT,
+    deleted_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+DELIMITER //
+
+-- 1. Prevent inserting a negative price
+CREATE TRIGGER trg_check_price_before_insert
+BEFORE INSERT ON books
+FOR EACH ROW
+BEGIN
+    IF NEW.price < 0 THEN
+        SIGNAL SQLSTATE '45000' 
+        SET MESSAGE_TEXT = 'Error: Book price cannot be negative.';
+    END IF;
+END//
+
+-- 2. Prevent inserting a negative quantity
+
+DELIMITER //
+CREATE TRIGGER trg_check_quantity_before_insert
+BEFORE INSERT ON books
+FOR EACH ROW
+BEGIN
+    IF NEW.quantity < 0 THEN
+        SIGNAL SQLSTATE '45000' 
+        SET MESSAGE_TEXT = 'Error: Book quantity cannot be negative.';
+    END IF;
+END//
+
+-- 3. Convert book title to UPPERCASE before inserting
+DELIMITER //
+CREATE TRIGGER trg_uppercase_title_before_insert
+BEFORE INSERT ON books
+FOR EACH ROW
+BEGIN
+    SET NEW.title = UPPER(NEW.title);
+END//
+
+-- 4. Prevent updating price to a negative value
+DELIMITER //
+CREATE TRIGGER trg_check_price_before_update
+BEFORE UPDATE ON books
+FOR EACH ROW
+BEGIN
+    IF NEW.price < 0 THEN
+        SIGNAL SQLSTATE '45000' 
+        SET MESSAGE_TEXT = 'Error: Updated price cannot be negative.';
+    END IF;
+END//
+
+-- 5. Prevent updating quantity to a negative value
+DELIMITER //
+CREATE TRIGGER trg_check_quantity_before_update
+BEFORE UPDATE ON books
+FOR EACH ROW
+BEGIN
+    IF NEW.quantity < 0 THEN
+        SIGNAL SQLSTATE '45000' 
+        SET MESSAGE_TEXT = 'Error: Updated quantity cannot be negative.';
+    END IF;
+END//
+
+DELIMITER ;
+
+DELIMITER //
+
+-- 6 & 7. Store book title, book_id, and insert date in book_log after an insert
+CREATE TRIGGER trg_log_after_insert
+AFTER INSERT ON books
+FOR EACH ROW
+BEGIN
+    INSERT INTO book_log (book_id, title, action_type, log_date)
+    VALUES (NEW.book_id, NEW.title, 'INSERT', NOW());
+END//
+
+-- 8. Store book_id and updated date in book_log when a book record is modified
+DELIMITER //
+CREATE TRIGGER trg_log_after_update
+AFTER UPDATE ON books
+FOR EACH ROW
+BEGIN
+    INSERT INTO book_log (book_id, title, action_type, log_date)
+    VALUES (NEW.book_id, NEW.title, 'UPDATE', NOW());
+END//
+
+-- 9 & 10. Store book_id, title, details, and deleted date in deleted_books before/after deletion
+DELIMITER //
+CREATE TRIGGER trg_log_after_delete
+AFTER DELETE ON books
+FOR EACH ROW
+BEGIN
+    INSERT INTO deleted_books (book_id, title, price, quantity, deleted_date)
+    VALUES (OLD.book_id, OLD.title, OLD.price, OLD.quantity, NOW());
+END//
+
+DELIMITER ;
